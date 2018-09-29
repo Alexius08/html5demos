@@ -82,12 +82,12 @@ server.addListener("connection", function(conn){
     log("<"+conn.id+"> "+message);
     conn.broadcast(message);
   });
-});
-
-server.addListener("close", function(conn){
-  log("closed connection: "+conn.id);
-  connected--;
-  conn.broadcast(connected+'');
+  
+  conn.addListener("close", function(conn){
+    log("closed connection: "+conn.id);
+    connected--;
+    conn.broadcast(connected+'');
+  });
 });
 
 server.listen(parseInt(process.ARGV[2]) || 8000);
